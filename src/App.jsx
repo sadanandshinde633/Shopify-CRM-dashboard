@@ -8,8 +8,16 @@ import WebhookTable from "./components/WebhookTable";
 import AutomationPanel from "./components/AutomationPanel";
 import ErrorPanel from "./components/ErrorPanel";
 import RevenueChart from "./components/RevenueChart";
+import ConnectModal from "./components/ConnectModal";
+import Toast from "./components/Toast";
+import CustomersPage from "./components/CustomersPage";
+import OrdersPage from "./components/OrdersPage";
+import ActivityFeed from "./components/ActivityFeed";
 
-import { statsData } from "./data/dashboardData";
+import {
+  statsData,
+  customersData,
+} from "./data/dashboardData";
 
 function App() {
 
@@ -19,10 +27,22 @@ function App() {
   // Mobile Sidebar State
   const [sidebarOpen, setSidebarOpen] = useState(false);
 
-  // Fake Loading State
+  // Loading State
   const [loading, setLoading] = useState(true);
 
-  // Fake API Loading Effect
+  // Active Page State
+  const [activePage, setActivePage] = useState("dashboard");
+
+  // Modal State
+  const [isModalOpen, setIsModalOpen] = useState(false);
+
+  // Toast State
+  const [toastMessage, setToastMessage] = useState("");
+
+  // Shared Customers State
+  const [customers, setCustomers] = useState(customersData);
+
+  // Fake Loading Effect
   useEffect(() => {
 
     const timer = setTimeout(() => {
@@ -70,7 +90,10 @@ function App() {
           md:translate-x-0
         `}
       >
-        <Sidebar />
+        <Sidebar
+          activePage={activePage}
+          setActivePage={setActivePage}
+        />
       </div>
 
       {/* Main Content */}
@@ -102,35 +125,63 @@ function App() {
         </div>
 
         {/* Navbar */}
-        <Navbar />
+        <Navbar openModal={() => setIsModalOpen(true)} />
 
-        {/* Statistics Cards */}
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
+        {/* Dashboard */}
+        {activePage === "dashboard" && (
+          <>
 
-          {statsData.map((card, index) => (
-            <StatsCard
-              key={index}
-              title={card.title}
-              value={card.value}
-              color={card.color}
-            />
-          ))}
+            {/* Stats Cards */}
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mt-6">
 
-        </div>
+              {statsData.map((card, index) => (
+                <StatsCard
+                  key={index}
+                  title={card.title}
+                  value={
+                    card.title === "Customers Synced"
+                      ? customers.length
+                      : card.value
+                  }
+                  color={card.color}
+                />
+              ))}
 
-        {/* Webhook Table */}
-        <WebhookTable />
+            </div>
 
-        {/* Automation Panel */}
-        <AutomationPanel />
+            <WebhookTable />
+            <AutomationPanel />
+            <ErrorPanel />
+            <RevenueChart />
+            <ActivityFeed />
 
-        {/* Error Panel */}
-        <ErrorPanel />
+          </>
+        )}
 
-        {/* Revenue Chart */}
-        <RevenueChart />
+        {/* Customers Page */}
+        {activePage === "customers" && (
+          <CustomersPage
+            customers={customers}
+            setCustomers={setCustomers}
+          />
+        )}
+
+        {/* Orders Page */}
+        {activePage === "orders" && (
+          <OrdersPage />
+        )}
 
       </div>
+
+      {/* Connect Modal */}
+      <ConnectModal
+        isOpen={isModalOpen}
+        onClose={() => setIsModalOpen(false)}
+        showToast={setToastMessage}
+      />
+
+      {/* Toast Notification */}
+      <Toast message={toastMessage} />
 
     </div>
   );

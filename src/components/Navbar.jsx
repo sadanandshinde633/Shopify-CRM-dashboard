@@ -1,4 +1,4 @@
-function Navbar() {
+function Navbar({ openModal }) {
   return (
     <div className="bg-white p-5 rounded-2xl border border-gray-200 flex justify-between items-center">
 
@@ -6,7 +6,10 @@ function Navbar() {
         Dashboard
       </h2>
 
-      <button className="bg-blue-600 hover:bg-blue-700 transition text-white px-5 py-2 rounded-xl font-medium">
+      <button
+        onClick={openModal}
+        className="bg-blue-600 hover:bg-blue-700 transition text-white px-5 py-2 rounded-xl font-medium"
+      >
         Connect Shopify
       </button>
 

@@ -1,7 +1,7 @@
 export const statsData = [
   {
     title: "Customers Synced",
-    value: "1,245",
+    value: "1245",
     color: "text-blue-600",
   },
 
@@ -32,7 +32,7 @@ export const webhookData = [
   },
 
   {
-    event: "customers/create",
+    event: "customers/update",
     status: "Success",
     time: "5 mins ago",
   },
@@ -43,40 +43,89 @@ export const webhookData = [
     time: "10 mins ago",
   },
 ];
+
 export const automationData = [
   {
-    title: "Welcome Email",
-    description:
-      "Automatically sends welcome emails to new customers.",
+    title: "Welcome Email Automation",
+    description: "Automatically sends welcome emails to new customers.",
     status: "Active",
   },
 
   {
     title: "Abandoned Cart Recovery",
-    description:
-      "Sends reminders to customers who leave products in cart.",
-    status: "Active",
-  },
-
-  {
-    title: "VIP Customer Campaign",
-    description:
-      "Targets high-value customers with personalized offers.",
+    description: "Sends reminder emails for abandoned carts.",
     status: "Pending",
   },
 ];
+
 export const errorData = [
   {
     title: "refunds/create Webhook Failed",
-    description: "Retry attempt #2 in progress",
+    message: "Retry attempt #2 in progress",
     time: "10 mins ago",
     type: "error",
   },
 
   {
     title: "API Rate Limit Warning",
-    description: "Request threshold nearing limit",
+    message: "Request threshold nearing limit",
     time: "15 mins ago",
     type: "warning",
+  },
+];
+
+export const customersData = [
+  {
+    name: "John Doe",
+    email: "john@example.com",
+    status: "Active",
+  },
+
+  {
+    name: "Sarah Smith",
+    email: "sarah@example.com",
+    status: "Active",
+  },
+
+  {
+    name: "Michael Johnson",
+    email: "michael@example.com",
+    status: "Inactive",
+  },
+
+  {
+    name: "Emma Wilson",
+    email: "emma@example.com",
+    status: "Active",
+  },
+];
+
+export const ordersData = [
+  {
+    id: "#ORD-1021",
+    customer: "John Doe",
+    amount: "$240",
+    status: "Paid",
+  },
+
+  {
+    id: "#ORD-1022",
+    customer: "Sarah Smith",
+    amount: "$120",
+    status: "Pending",
+  },
+
+  {
+    id: "#ORD-1023",
+    customer: "Michael Johnson",
+    amount: "$540",
+    status: "Paid",
+  },
+
+  {
+    id: "#ORD-1024",
+    customer: "Emma Wilson",
+    amount: "$320",
+    status: "Cancelled",
   },
 ];
